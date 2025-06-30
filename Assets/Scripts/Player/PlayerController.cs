@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     #region Player Variables
     [Header("General Settings")]
     [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _rotationSpeed = 700f;
     [SerializeField] private float _jumpHeight = 1.5f;
     [SerializeField] private float _gravity = -9.81f;
 
@@ -45,8 +46,10 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 move = transform.forward * z;
         _controller.Move(_moveSpeed * Time.deltaTime * move);
+
+        transform.Rotate(Vector3.up * x * _rotationSpeed * Time.deltaTime);
     }
 
     void PlayerJump()
